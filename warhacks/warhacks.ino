@@ -2,25 +2,28 @@
  * Code created by Alexandre Lavoie and Tristan Viera of team int kiwi.
  */
 
+#include <Servo.h>
+
+Servo servo1, servo2, servo3, servo4;
+
 int kiwi = 0; // <3
 
 // Light sensor variables.
-bool left_light_sensor = false;
-bool right_light_sensor = false;
+float left_light_sensor = 0;
+float right_light_sensor = 0;
 
-// Distance
-float distance = 0;
-
-// Constant variables.
-const float MAX_MOTOR_SPEED = 1;
+// Distance sensor variables.
+float distance_sensor = 0;
 
 void setup() {
-  
+    servo1.attach(13);
+    servo2.attach(12);
+    servo3.attach(11);
+    servo4.attach(10);
 }
 
 void loop() {
-  test_light_sensor();
-  distance = get_distance();
+  test_sensors();
   move();
 }
 
@@ -28,28 +31,33 @@ void loop() {
  * Tests for the light sensor in the line following problem.
  */
 
-void test_light_sensor(){
+void test_sensors(){
+   int val1 = analogRead(A0);
+   delay(1);
+   result = map(val1,0,1023,500,3000);
+   servo1.writeMicroseconds(result);
+   
+   int val2 = analogRead(A1);
+   delay(1);
+   result2 = map(val2,0,1023,800,1800);
+   servo2.writeMicroseconds(result2);
+   
+   int val3 = analogRead(A2);
+   delay(1);
+   result3 = map(val3,0,1023,500,1000);
+   servo3.writeMicroseconds(result3);
 
+   int val4 = analogRead(A3);
+   delay(1);
+   result4 = map(val4,0,1023,650,1800);
+   servo4.writeMicroseconds(result4);
 }
 
-/*
- * Gets distance to the object in front of the robot.
- */
-
-float get_distance(){
-  
-}
 
 /*
  * Moves the robot according to the given sensor input.
  */
 
 void move(){
-  if(!left_light_sensor&&!right_light_sensor){
-      
-  }else if(!left_light_sensor){
-      
-  }else{
-        
-  }  
+  
 }
